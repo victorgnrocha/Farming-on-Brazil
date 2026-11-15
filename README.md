@@ -9,4 +9,9 @@ O jogo se ambienta em uma região de mata amazônica, típica região brasileira
  - Inverno
  - Primavera
 
- 
+ ---
+
+ Os alunos responsáveis são:
+
+ Víctor Rocha - Aluno do 4 semestre de Engenharia Mecatrônica, estagiário em Engenharia Robótica na Zion Robotics.
+ Felipe Alabano - 

@@ -11,7 +11,7 @@ int main()
     const int alturaTela = 1080;
 
     Vector2 playerPosition = {(float)larguraTela/2, float(alturaTela/2)};
-
+    float baseVelocity = 200.0f; // Declaro a velocidade base do personagem
 
     InitWindow(larguraTela, alturaTela,"Farming on Brazil"); //Aceita apenas strings, se tentarmos definir como std::string ele não vai aceitar, 
                                                             // pois no c, string é um ponteiro char * que aponta pro primeiro caractere.
@@ -19,25 +19,28 @@ int main()
     SetTargetFPS(60);
 
     //LoopPrincipal
-
+    //-----------------------------------------------------------------
     while(!WindowShouldClose())
     {
+        float velocity = baseVelocity;
+        if(IsKeyDown(KEY_LEFT_SHIFT)) velocity *= 2.0;
+
         //Mapeando movimentacao
-        if (IsKeyDown(KEY_A)) playerPosition.x += 1.5;
-
-
+        if (IsKeyDown(KEY_A)) playerPosition.x -= GetFrameTime()*velocity;      //Movimetação esquerda
+        if (IsKeyDown(KEY_D)) playerPosition.x += GetFrameTime()*velocity;      //Movimentação direita
+        if (IsKeyDown(KEY_W)) playerPosition.y -= GetFrameTime()*velocity;      //Movimentação cima
+        if (IsKeyDown(KEY_S)) playerPosition.y += GetFrameTime()*velocity;      //Movimentação baixo
 
         BeginDrawing();                         //Iniciando a tela
-            ClearBackground(RAYWHITE);
+            ClearBackground(RAYWHITE);          //Mantém o Bg sempre branco
 
-            DrawCircle(playerPosition.x, playerPosition.y , 50, MAROON);
+            DrawCircle(playerPosition.x, playerPosition.y , 50, MAROON); //Desenha o placeholder do personagem;
 
-
-        EndDrawing();
+        EndDrawing(); //Encerra o Desenho da Tela
     }
+    //----------------------------------------------------------------------
+    //Fim do Loop Principal
 
-    CloseWindow();
 
-
-    std::cout << "Oi" << std::endl;
+    CloseWindow();      //Fecha a Janela
 }
