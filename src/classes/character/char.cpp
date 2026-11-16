@@ -1,31 +1,46 @@
-#include <char.h>
+#include "char.h"
 
-std::string Personagem::setNome(std::string nomeRef)
+void Personagem::setNome(std::string nomeRef)
 {
     this->nome = nomeRef;
-    return nome;
 }
 
 std::string Personagem::getNome()
 {
-    std::cout << "O nome:" << nome << std::endl;
+    std::cout << "O nome:" << this->nome << std::endl;
     return nome;
 }
 
-int Personagem::setStamina(int staminaRef)
+void Personagem::setStamina(float staminaRef)
 {
-    this->stamina = staminaRef;
-    return stamina;
+    this->stamina += staminaRef;
+    if(this->stamina <= 0) this->stamina = 0;
+    if(this->stamina >= 100) this->stamina = 100;
 }
 
-int Personagem::getStamina()
+float Personagem::getStamina()
 {
     std::cout << stamina << std::endl;
     return stamina;
 }
 
-Vector2 Personagem::setPosition(Vector2 positionRef)
+void Personagem::setPosition(Vector2 positionRef)
 {
     this->playerPosition.x = positionRef.x;
     this->playerPosition.y = positionRef.y;
+}
+
+Vector2 Personagem::getPosition()
+{
+    return this->playerPosition;
+}
+
+void Personagem::setMovimento(bool movimentoRef)
+{
+    this->movimento = movimentoRef;
+}
+
+bool Personagem::getMovimento()
+{
+    return this->movimento;
 }

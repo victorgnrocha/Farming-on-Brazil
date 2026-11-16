@@ -1,5 +1,6 @@
 //There's a nice day to farm on brazil :)
 
+#include <iomanip>
 #include <iostream>
 #include <stdlib.h>
 #include "raylib.h"
@@ -27,13 +28,13 @@ int main()
     charCam.rotation = 0.0f;
     charCam.zoom = 5.0f;
 
-    TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
+    /*TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
     if(mapa == nullptr)
     {
         CloseWindow();
         std::cout << "Erro! Ponteiro nulo." << std::endl;
         return 1;
-    }
+    } */
 
     Personagem farmer = Personagem("Victor");
 
@@ -47,10 +48,27 @@ int main()
         if(IsKeyDown(KEY_LEFT_SHIFT)) velocity *= 2.0;
 
         //Mapeando movimentacao
-        if (IsKeyDown(KEY_A)) playerPosition.x -= GetFrameTime()*velocity;      //Movimetação esquerda
+        if (IsKeyDown(KEY_A)) 
+        {
+            farmer.setMovimento(1);
+            playerPosition.x -= GetFrameTime()*velocity; 
+        }     //Movimetação esquerda
         if (IsKeyDown(KEY_D)) playerPosition.x += GetFrameTime()*velocity;      //Movimentação direita
         if (IsKeyDown(KEY_W)) playerPosition.y -= GetFrameTime()*velocity;      //Movimentação cima
         if (IsKeyDown(KEY_S)) playerPosition.y += GetFrameTime()*velocity;      //Movimentação baixo
+        farmer.setPosition(playerPosition);
+        farmer.getPosition();
+
+        if(farmer.getMovimento() == 1)
+        {
+            farmer.setStamina(-0.07);
+        }
+        else if (farmer.getMovimento() == 0)
+        {
+            farmer.setStamina(0.02);
+        }
+        std::cout << std::setprecision(3) << farmer.getStamina() << std::endl;
+        farmer.setMovimento(0);
 
 
         charCam.target = (Vector2){playerPosition.x, playerPosition.y};
@@ -60,7 +78,7 @@ int main()
 
             BeginMode2D(charCam);
 
-            DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
+            //DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
             DrawCircleV(playerPosition , 5, MAROON); //Desenha o placeholder do personagem;
 
             EndMode2D();        //Encera o modo da câmera
@@ -70,6 +88,6 @@ int main()
     //----------------------------------------------------------------------
     //Fim do Loop Principal
 
-    UnloadTMX(mapa);
+    //UnloadTMX(mapa);
     CloseWindow();      //Fecha a Janela
 }

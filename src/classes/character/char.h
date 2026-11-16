@@ -13,18 +13,22 @@ class Personagem {
         }
 
         std::string getNome();      //Declaracao da getNome
-        std::string setNome(std::string nomeRef);      //Declaracao setNome
+        void setNome(std::string nomeRef);      //Declaracao setNome
 
         Vector2 getPosition();      //Declaracao getPosition
-        Vector2 setPosition(Vector2 positionRef);      //Declaracao setPosition
+        void setPosition(Vector2 positionRef);      //Declaracao setPosition
 
-        int setStamina(int staminaRef);           //Declaracao setStamina
-        int getStamina();           //Declaracao getStamina
+        void setStamina(float staminaRef);           //Declaracao setStamina
+        float getStamina();           //Declaracao getStamina
+
+        void setMovimento(bool movimentoRef);
+        bool getMovimento();
 
     private:
         std::string nome;       //String nome
         Vector2 playerPosition;     //PosicaoPlano
-        int stamina;            //Stamina
+        float stamina;            //Stamina
         int vida;               //Vida
+        bool movimento;
 
 };
