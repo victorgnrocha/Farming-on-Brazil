@@ -7,8 +7,8 @@
 int main()
 {
 
-    const int  larguraTela = 1920;
-    const int alturaTela = 1080;
+    const int  larguraTela = 1360;
+    const int alturaTela = 765;
 
     Vector2 playerPosition = {(float)larguraTela/2, float(alturaTela/2)};
     float baseVelocity = 200.0f; // Declaro a velocidade base do personagem
