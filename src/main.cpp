@@ -14,6 +14,9 @@ int main()
 {
     const int  larguraTela = 1920;
     const int alturaTela = 1080;
+    float tempoDecorrido = 0.0f;
+    int diasEstacao = 31;
+    int contadorDias = 0;
 
     Vector2 playerPosition = {(float)larguraTela/2, float(alturaTela/2)};
     float baseVelocity = 150.0f; // Declaro a velocidade base do personagem
@@ -44,6 +47,15 @@ int main()
     //-----------------------------------------------------------------
     while(!WindowShouldClose())
     {
+        tempoDecorrido += GetFrameTime() * 144.0f;
+        if(tempoDecorrido >= 86400.0f)
+        {
+            tempoDecorrido = 0;
+            contadorDias ++;
+        }
+        std::cout << "Horas:" << tempoDecorrido/3600 << std::endl;
+        std::cout << "Hoje eh o dia:" << contadorDias << std::endl;
+
         float velocity = baseVelocity;
         if(IsKeyDown(KEY_LEFT_SHIFT)) velocity *= 2.0;
 
