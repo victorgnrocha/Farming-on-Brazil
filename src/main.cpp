@@ -4,15 +4,16 @@
 #include <stdlib.h>
 #include "raylib.h"
 
-int main()
+int main() 
 {
 
-    const int  larguraTela = 1920;
-    const int alturaTela = 1080;
+    const int  larguraTela = 960;
+    const int alturaTela = 540;
 
     Vector2 playerPosition = {(float)larguraTela/2, float(alturaTela/2)};
     float baseVelocity = 200.0f; // Declaro a velocidade base do personagem
 
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_HIGHDPI);
     InitWindow(larguraTela, alturaTela,"Farming on Brazil"); //Aceita apenas strings, se tentarmos definir como std::string ele não vai aceitar, 
                                                             // pois no c, string é um ponteiro char * que aponta pro primeiro caractere.
 
