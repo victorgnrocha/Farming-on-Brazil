@@ -19,7 +19,7 @@ std::string Item::getNome()
 
 void Item::setNome(std::string nomeRef)
 {
-    this->nome = nome;
+    this->nome = nomeRef;
 }
 //Cor
 Color Item::getCor()
@@ -40,21 +40,23 @@ int Item::getQuantidade()
 
 void Item::setQuantidade(int quantidadeRef)
 {
-    this->quantidade = quantidade;
-    if(quantidade >= this->maxStack)
+    this->quantidade = quantidadeRef;
+    if(this->quantidade <= 0) this->quantidade = 0;     //Nao deixa ficar negativo
+    if(this->quantidade >= this->maxStack)
     {
+        this->quantidade = this->maxStack;      //Trava no maximo do stack
         std::cout << "Quantidade máxima" << std::endl;
     }
 }
 
 //max stack
 
-int Item::setMaxStack(int stackRef)
+void Item::setMaxStack(int stackRef)
 {
     this->maxStack = stackRef;
 }
 
-void Item::getMaxStack()
+int Item::getMaxStack()
 {
     return this->maxStack;
 }
@@ -65,4 +67,3 @@ bool Item::isEmpty()
 {
     return quantidade <=0;
 }
-

@@ -1,6 +1,7 @@
+#pragma once
 #include "raylib.h"
 #include "raymath.h"
-#include "./inventario/inventario.h"
+#include "../inventario/inventario.h"
 #include <iostream>
 
 class Personagem {

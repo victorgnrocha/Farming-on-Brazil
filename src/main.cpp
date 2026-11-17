@@ -1,5 +1,6 @@
 //There's a nice day to farm on brazil :)
 
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <stdlib.h>
@@ -9,6 +10,8 @@
 #include "libs/raytmx/raytmx.h"
 
 #include "./classes/character/char.h"
+#include "./classes/itens/tangerina.h"
+#include "./classes/terreno/terreno.h"
 
 int main()
 {
@@ -31,15 +34,25 @@ int main()
     charCam.rotation = 0.0f;
     charCam.zoom = 5.0f;
 
-    TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
-    if(mapa == nullptr)
-    {
-        CloseWindow();
-        std::cout << "Erro! Ponteiro nulo." << std::endl;
-        return 1;
-    } 
+    //TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
+    //if(mapa == nullptr)
+    //{
+    //    CloseWindow();
+    //    std::cout << "Erro! Ponteiro nulo." << std::endl;
+    //    return 1;
+    //}
 
     Personagem farmer = Personagem("Victor");
+
+    //Ferramentas iniciais do personagem
+    farmer.getInventario().addItem(Item("Enxada", BROWN, 1, FERRAMENTA));
+    farmer.getInventario().addItem(Item("Regador", SKYBLUE, 1, FERRAMENTA));
+    farmer.getInventario().addItem(Item("Machado", GRAY, 1, FERRAMENTA));
+    farmer.getInventario().addItem(Item("Foice", LIGHTGRAY, 1, FERRAMENTA));
+    bool inventarioAberto = true;       //Inventario comeca aberto na tela
+
+    Terreno terreno = Terreno(120, 68, 16.0f);      //Grade de 120x68 tiles de 16px, cobre a area inicial
+    const int alcanceFerramenta = 4;        //Distancia maxima em tiles pra usar ferramenta
 
     SetTargetFPS(60);
 
@@ -89,24 +102,105 @@ int main()
         std::cout << farmer.getPosition().x << std::endl;
         std::cout << farmer.getPosition().y << std::endl;
 
+        //Inventario
+        if(IsKeyPressed(KEY_E))     //Colhe uma tangerina
+        {
+            if(!farmer.getInventario().addItem(Tangerina(1))) std::cout << "Inventario cheio!" << std::endl;
+        }
+        if(IsKeyPressed(KEY_I)) inventarioAberto = !inventarioAberto;     //Abre e fecha o inventario
+
+        //Selecao de ferramenta, so de 1 a 4
+        if(IsKeyPressed(KEY_ONE)) farmer.getInventario().setSlotSelecionado(0);
+        if(IsKeyPressed(KEY_TWO)) farmer.getInventario().setSlotSelecionado(1);
+        if(IsKeyPressed(KEY_THREE)) farmer.getInventario().setSlotSelecionado(2);
+        if(IsKeyPressed(KEY_FOUR)) farmer.getInventario().setSlotSelecionado(3);
+
 
         charCam.target = (Vector2){playerPosition.x, playerPosition.y};
+
+        //Tile embaixo do mouse e tile do player
+        Vector2 mouseMundo = GetScreenToWorld2D(GetMousePosition(), charCam);       //Mouse na tela -> posicao no mundo
+        int colMouse = terreno.getColuna(mouseMundo.x);
+        int linMouse = terreno.getLinha(mouseMundo.y);
+        int colPlayer = terreno.getColuna(playerPosition.x);
+        int linPlayer = terreno.getLinha(playerPosition.y);
+        int distancia = std::max(std::abs(colMouse - colPlayer), std::abs(linMouse - linPlayer));       //Distancia em tiles, conta diagonal
+        bool noAlcance = distancia <= alcanceFerramenta;
+        bool mouseNaInterface = inventarioAberto && farmer.getInventario().mouseEmCima();
+        Solo* soloMouse = terreno.getSolo(colMouse, linMouse);
+
+        //Usar ferramenta
+        if(soloMouse != nullptr && noAlcance && !mouseNaInterface)
+        {
+            if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+            {
+                std::string ferramenta = farmer.getInventario().getItemSelecionado().getNome();
+                if(ferramenta == "Enxada")
+                {
+                    if(!soloMouse->arar()) std::cout << "Tem planta aqui!" << std::endl;
+                }
+                else if(ferramenta == "Regador")
+                {
+                    if(!soloMouse->regar()) std::cout << "Precisa arar antes de regar!" << std::endl;
+                }
+                else if(ferramenta == "Foice")
+                {
+                    if(soloMouse->colher()) farmer.getInventario().addItem(Tangerina(3));       //Colheita da 3 tangerinas
+                    else std::cout << "Nada maduro pra colher!" << std::endl;
+                }
+                else if(ferramenta == "Machado")
+                {
+                    std::cout << "Nada pra cortar aqui!" << std::endl;
+                }
+            }
+
+            //Plantar tangerina com o botao direito
+            if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+            {
+                if(farmer.getInventario().contarItem("Tangerina") == 0)
+                {
+                    std::cout << "Sem tangerina pra plantar!" << std::endl;
+                }
+                else if(soloMouse->plantar())
+                {
+                    farmer.getInventario().removerItemPorNome("Tangerina", 1);      //Gasta uma tangerina
+                }
+                else
+                {
+                    std::cout << "O solo precisa estar arado e vazio!" << std::endl;
+                }
+            }
+        }
+
+        terreno.atualizar(GetFrameTime());      //Seca o solo e cresce as plantas regadas
 
         BeginDrawing();                         //Iniciando a tela
             ClearBackground(RAYWHITE);          //Mantém o Bg sempre branco
 
             BeginMode2D(charCam);
 
-            DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
+            //DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
+            terreno.desenhar();
+
+            //Contorno do tile do mouse, verde se alcanca e vermelho se ta longe
+            if(soloMouse != nullptr && !mouseNaInterface)
+            {
+                float tam = terreno.getTamTile();
+                DrawRectangleLinesEx((Rectangle){colMouse * tam, linMouse * tam, tam, tam}, 0.5f, noAlcance ? GREEN : RED);
+            }
+
             DrawCircleV(playerPosition , 5, MAROON); //Desenha o placeholder do personagem;
 
             EndMode2D();        //Encera o modo da câmera
+
+            //Interface fica fora da camera, senao ela anda junto com o mapa
+            if(inventarioAberto) farmer.getInventario().desenharInventario();
 
         EndDrawing(); //Encerra o Desenho da Tela
     }
     //----------------------------------------------------------------------
     //Fim do Loop Principal
 
-    UnloadTMX(mapa);
+    //UnloadTMX(mapa);
     CloseWindow();      //Fecha a Janela
 }

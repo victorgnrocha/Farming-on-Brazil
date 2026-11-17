@@ -14,6 +14,15 @@ class Item
         tipoItem tipo;
 
     public:
+        //Construtor vazio, usado pelos slots do inventario
+        Item()
+        {
+            this->nome = "";        //Slot sem nome
+            this->cor = BLANK;      //Sem cor
+            this->maxStack = 0;
+            this->tipo = COLHEITA;
+            this->quantidade = 0;       //Quantidade 0 = slot vazio
+        }
 
         Item(std::string nome, Color cor, int maxStack, tipoItem tipo, int quantidade = 1)
         {
