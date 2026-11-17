@@ -22,9 +22,7 @@ add_executable(Farming_on_Brazil
                 src/classes/inventario/inventario.cpp
                 src/classes/itens/tangerina.cpp
                 src/classes/terreno/solo.cpp
-                src/classes/terreno/terreno.cpp
-                
-                
+                src/classes/terreno/terreno.cpp     
                 )
 target_link_libraries(Farming_on_Brazil PRIVATE raylib)
 target_include_directories(Farming_on_Brazil PRIVATE src)

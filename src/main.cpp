@@ -15,11 +15,13 @@
 
 int main()
 {
-    const int  larguraTela = 1920;
-    const int alturaTela = 1080;
+    const int  larguraTela = 1360;
+    const int alturaTela = 765;
     float tempoDecorrido = 0.0f;
     int diasEstacao = 31;
     int contadorDias = 0;
+
+    float scale = 1.0f;
 
     Vector2 playerPosition = {(float)larguraTela/2, float(alturaTela/2)};
     float baseVelocity = 150.0f; // Declaro a velocidade base do personagem
@@ -56,6 +58,21 @@ int main()
 
     SetTargetFPS(60);
 
+    Texture2D playerTexture = LoadTexture("assets/player.png"); // Carrego a skin do player
+    SetTextureFilter(playerTexture, TEXTURE_FILTER_POINT);
+
+    float frameWidth = (float)(playerTexture.width);
+    float frameHeight = (float)(playerTexture.height);
+
+    // Retângulo que recorta qual parte da imagem será desenhada
+    Rectangle frameRec = { 0.0f, 0.0f, frameWidth, frameHeight };
+
+    // Controle de tempo da animação
+    int currentFrame = 0;
+    float framesCounter = 0.0f;
+    float framesSpeed = 8.0f; // Quantos frames por segundo a animação roda
+
+    
     //LoopPrincipal
     //-----------------------------------------------------------------
     while(!WindowShouldClose())
@@ -72,15 +89,15 @@ int main()
         float velocity = baseVelocity;
         if(IsKeyDown(KEY_LEFT_SHIFT)) velocity *= 2.0;
 
+        bool isMoving = false;
+
         //Mapeando movimentacao
-        if (IsKeyDown(KEY_A)) 
-        {
-            farmer.setMovimento(1);
-            playerPosition.x -= GetFrameTime()*velocity; 
-        }     //Movimetação esquerda
-        if (IsKeyDown(KEY_D)) playerPosition.x += GetFrameTime()*velocity;      //Movimentação direita
-        if (IsKeyDown(KEY_W)) playerPosition.y -= GetFrameTime()*velocity;      //Movimentação cima
-        if (IsKeyDown(KEY_S)) playerPosition.y += GetFrameTime()*velocity;      //Movimentação baixo
+        if (IsKeyDown(KEY_A)) { playerPosition.x -= GetFrameTime()*velocity; isMoving = true; }      //Movimetação esquerda
+        if (IsKeyDown(KEY_D)) { playerPosition.x += GetFrameTime()*velocity; isMoving = true; }      //Movimentação direita
+        if (IsKeyDown(KEY_W)) { playerPosition.y -= GetFrameTime()*velocity; isMoving = true; }      //Movimentação cima
+        if (IsKeyDown(KEY_S)) { playerPosition.y += GetFrameTime()*velocity; isMoving = true; }      //Movimentação baixo
+        if (isMoving) farmer.setMovimento(1);   //Gasta stamina andando em qualquer direção
+        farmer.setPosition(playerPosition);    //Movimentação baixo
         farmer.setPosition(playerPosition);
         farmer.getPosition();
 
@@ -190,10 +207,14 @@ int main()
             }
 
             DrawCircleV(playerPosition , 5, MAROON); //Desenha o placeholder do personagem;
+            Vector2 origem = { frameWidth / 2.0f, frameHeight / 2.0f };
+            Rectangle destRec = {playerPosition.x, playerPosition.y, frameWidth, frameHeight};     //Sem escala: o zoom da camera ja aumenta o sprite
+            DrawTexturePro(playerTexture, frameRec, destRec, origem, 0.0f, WHITE);
 
             EndMode2D();        //Encera o modo da câmera
 
             //Interface fica fora da camera, senao ela anda junto com o mapa
+
             if(inventarioAberto) farmer.getInventario().desenharInventario();
 
         EndDrawing(); //Encerra o Desenho da Tela
@@ -201,5 +222,8 @@ int main()
     //----------------------------------------------------------------------
     //Fim do Loop Principal
     UnloadTMX(mapa);
+
+
+    UnloadTexture(playerTexture); // Libero a memória da GPU
     CloseWindow();      //Fecha a Janela
 }
