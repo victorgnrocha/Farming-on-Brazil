@@ -15,6 +15,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
-add_executable(Farming_on_Brazil src/main.cpp src/classes/character/char.cpp)
+add_executable(Farming_on_Brazil 
+                src/main.cpp 
+                src/classes/character/char.cpp
+                src/classes/itens/Items.cpp
+                src/classes/inventario/inventario.cpp
+                
+                
+                )
 target_link_libraries(Farming_on_Brazil PRIVATE raylib)
 target_include_directories(Farming_on_Brazil PRIVATE src)

@@ -31,13 +31,13 @@ int main()
     charCam.rotation = 0.0f;
     charCam.zoom = 5.0f;
 
-    /*TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
+    TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
     if(mapa == nullptr)
     {
         CloseWindow();
         std::cout << "Erro! Ponteiro nulo." << std::endl;
         return 1;
-    } */
+    } 
 
     Personagem farmer = Personagem("Victor");
 
@@ -73,14 +73,21 @@ int main()
 
         if(farmer.getMovimento() == 1)
         {
-            farmer.setStamina(-0.07);
+            farmer.setStamina(-0.3);
         }
         else if (farmer.getMovimento() == 0)
         {
             farmer.setStamina(0.02);
         }
+        if(farmer.getStamina() == 0)
+        {
+            velocity = velocity * 0.25;
+        } 
         std::cout << std::setprecision(3) << farmer.getStamina() << std::endl;
         farmer.setMovimento(0);
+
+        std::cout << farmer.getPosition().x << std::endl;
+        std::cout << farmer.getPosition().y << std::endl;
 
 
         charCam.target = (Vector2){playerPosition.x, playerPosition.y};
@@ -90,7 +97,7 @@ int main()
 
             BeginMode2D(charCam);
 
-            //DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
+            DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
             DrawCircleV(playerPosition , 5, MAROON); //Desenha o placeholder do personagem;
 
             EndMode2D();        //Encera o modo da câmera
@@ -100,6 +107,6 @@ int main()
     //----------------------------------------------------------------------
     //Fim do Loop Principal
 
-    //UnloadTMX(mapa);
+    UnloadTMX(mapa);
     CloseWindow();      //Fecha a Janela
 }
