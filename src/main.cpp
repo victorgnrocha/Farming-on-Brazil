@@ -34,13 +34,13 @@ int main()
     charCam.rotation = 0.0f;
     charCam.zoom = 5.0f;
 
-    //TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
-    //if(mapa == nullptr)
-    //{
-    //    CloseWindow();
-    //    std::cout << "Erro! Ponteiro nulo." << std::endl;
-    //    return 1;
-    //}
+    TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
+    if(mapa == nullptr)
+    {
+        CloseWindow();
+        std::cout << "Erro! Ponteiro nulo." << std::endl;
+       return 1;
+    }
 
     Personagem farmer = Personagem("Victor");
 
@@ -179,7 +179,7 @@ int main()
 
             BeginMode2D(charCam);
 
-            //DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
+            DrawTMX(mapa, &charCam, nullptr, 0, 0, WHITE);
             terreno.desenhar();
 
             //Contorno do tile do mouse, verde se alcanca e vermelho se ta longe
@@ -200,7 +200,6 @@ int main()
     }
     //----------------------------------------------------------------------
     //Fim do Loop Principal
-
-    //UnloadTMX(mapa);
+    UnloadTMX(mapa);
     CloseWindow();      //Fecha a Janela
 }
