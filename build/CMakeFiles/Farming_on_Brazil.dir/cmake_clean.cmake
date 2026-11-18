@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Farming_on_Brazil.dir/src/classes/inventario/inventario.cpp.o.d"
   "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/Items.cpp.o"
   "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/Items.cpp.o.d"
+  "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/culturas.cpp.o"
+  "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/culturas.cpp.o.d"
   "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/maracuja.cpp.o"
   "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/maracuja.cpp.o.d"
   "CMakeFiles/Farming_on_Brazil.dir/src/classes/itens/tangerina.cpp.o"

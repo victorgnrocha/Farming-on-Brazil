@@ -3,8 +3,8 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o: \
  /usr/include/stdc-predef.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/internal.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/../include/GLFW/glfw3.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -19,6 +19,7 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o: \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/platform.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/null_platform.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/x11_platform.h \
@@ -73,13 +74,14 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o: \
  /usr/include/X11/Xosdefs.h /usr/include/X11/keysym.h \
  /usr/include/X11/keysymdef.h /usr/include/X11/Xatom.h \
  /usr/include/X11/Xresource.h /usr/include/X11/Xcursor/Xcursor.h \
- /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
+ /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
@@ -135,7 +137,7 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o: \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/posix_time.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/../include/GLFW/glfw3native.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glfw/src/mappings.h \
- /usr/include/assert.h /usr/lib/gcc/x86_64-linux-gnu/11/include/float.h \
+ /usr/include/assert.h /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
  /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \

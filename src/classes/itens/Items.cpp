@@ -61,6 +61,13 @@ int Item::getMaxStack()
     return this->maxStack;
 }
 
+//cultura
+
+tipoCultura Item::getCultura()
+{
+    return this->cultura;
+}
+
 //vazio
 
 bool Item::isEmpty()

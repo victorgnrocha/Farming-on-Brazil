@@ -1,5 +1,6 @@
 #include "inventario.h"
 #include <iostream>
+#include "../itens/culturas.h"
 
 Inventario::Inventario(int capacidade)
 {
@@ -117,7 +118,7 @@ void Inventario::desenharInventario()
     DrawRectangle(posX, posY, largura, altura, Fade(BLACK, 0.7f));
     DrawRectangleLines(posX, posY, largura, altura, RAYWHITE);
     this->areaTela = {(float)posX, (float)posY, (float)largura, (float)altura};     //Guarda pra checar o mouse
-    DrawText("Inventario  [1-0] seleciona  [Esq] usa  [Dir] planta fruta  [E] pega fruta  [I] fecha", posX + espaco, posY + 6, 20, RAYWHITE);
+    DrawText("Inventario  [1-0] seleciona  [Esq] usa  [Dir] planta  [E] pega fruta  [I] fecha", posX + espaco, posY + 6, 20, RAYWHITE);
 
     for(int i = 0; i < this->capacidade; i++)
     {
@@ -140,11 +141,15 @@ void Inventario::desenharInventario()
         Color borda = (s.getType() == FERRAMENTA) ? GOLD : RAYWHITE;
         DrawRectangleLines(x, y, tamSlot, tamSlot, borda);
 
-        DrawRectangle(x + 25, y + 12, tamSlot - 50, tamSlot - 50, s.getCor());       //Icone placeholder com a cor do item
+        Rectangle icone = {(float)x + 25, (float)y + 12, (float)tamSlot - 50, (float)tamSlot - 50};
+        if(Culturas::temSprite(s.getCultura())) Culturas::desenharIcone(s, icone);     //Sprite do tileset
+        else DrawRectangleRec(icone, s.getCor());       //Icone placeholder com a cor do item
 
-        //Nome centralizado embaixo do icone
-        int larguraNome = MeasureText(s.getNome().c_str(), 14);
-        DrawText(s.getNome().c_str(), x + (tamSlot - larguraNome) / 2, y + tamSlot - 26, 14, RAYWHITE);
+        //Nome centralizado embaixo do icone, diminui a fonte se nao couber no slot
+        int fonte = 14;
+        while(fonte > 8 && MeasureText(s.getNome().c_str(), fonte) > tamSlot - 4) fonte--;
+        int larguraNome = MeasureText(s.getNome().c_str(), fonte);
+        DrawText(s.getNome().c_str(), x + (tamSlot - larguraNome) / 2, y + tamSlot - 26, fonte, RAYWHITE);
 
         //Quantidade so aparece se o item empilha
         if(s.getMaxStack() > 1)

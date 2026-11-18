@@ -10,3 +10,10 @@ class Tangerina : public Item
 
         static const int recuperaStamina = 15;      //Quanto de stamina a fruta devolve quando come
 };
+
+//Semente de tangerina, planta e vira um pe de tangerina
+class SementeTangerina : public Item
+{
+    public:
+        SementeTangerina(int quantidade = 1);
+};

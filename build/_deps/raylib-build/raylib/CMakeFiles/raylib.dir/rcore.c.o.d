@@ -2,8 +2,8 @@ _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o: \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/rcore.c \
  /usr/include/stdc-predef.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/raylib.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/config.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/utils.h \
  /usr/include/stdlib.h \
@@ -15,7 +15,7 @@ _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o: \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
  /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
@@ -60,22 +60,23 @@ _deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o: \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/rlgl.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/glad.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/raymath.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/rgestures.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/rcamera.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/msf_gif.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/emmintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/xmmintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mmintrin.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/mm_malloc.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/emmintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/mmintrin.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/mm_malloc.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/sinfl.h \
  /usr/include/assert.h \
  /home/victorrocha/Documentos/Prog_Lessons/C++/Farming-on-Brazil/build/_deps/raylib-src/src/external/sdefl.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \

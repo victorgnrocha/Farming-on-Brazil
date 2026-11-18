@@ -1,4 +1,5 @@
 #include "solo.h"
+#include "../itens/culturas.h"
 
 Solo::Solo()
 {
@@ -99,7 +100,14 @@ void Solo::desenhar(float x, float y, float tam)
     Color corSolo = this->regado ? (Color){80, 50, 30, 255} : (Color){150, 105, 60, 255};       //Regado fica mais escuro
     DrawRectangleV((Vector2){x, y}, (Vector2){tam, tam}, corSolo);
 
-    //Placeholder da planta, cresce conforme o estagio
+    //Sprite da planta (placeholder do tileset), se a cultura tiver um
+    if(this->plantado && Culturas::temSprite(this->fruta.getCultura()))
+    {
+        Culturas::desenharEstagio(this->fruta.getCultura(), getEstagio(), (Rectangle){x, y, tam, tam});
+        return;
+    }
+
+    //Sem sprite: placeholder de bolinhas, cresce conforme o estagio
     Vector2 centro = {x + tam/2, y + tam/2};
     switch(getEstagio())
     {

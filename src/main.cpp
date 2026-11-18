@@ -12,6 +12,7 @@
 #include "./classes/character/char.h"
 #include "./classes/itens/tangerina.h"
 #include "./classes/itens/maracuja.h"
+#include "./classes/itens/culturas.h"
 #include "./classes/terreno/terreno.h"
 
 int main()
@@ -37,7 +38,7 @@ int main()
     charCam.rotation = 0.0f;
     charCam.zoom = 5.0f;
 
-    TmxMap* mapa = LoadTMX("assets/maps/FarmingOnBrazil.tmx");
+    TmxMap* mapa = LoadTMX(ASSETS_PATH "maps/FarmingOnBrazil.tmx");
     if(mapa == nullptr)
     {
         CloseWindow();
@@ -52,6 +53,10 @@ int main()
     farmer.getInventario().addItem(Item("Regador", SKYBLUE, 1, FERRAMENTA));
     farmer.getInventario().addItem(Item("Machado", GRAY, 1, FERRAMENTA));
     farmer.getInventario().addItem(Item("Foice", LIGHTGRAY, 1, FERRAMENTA));
+
+    //Sementes iniciais
+    farmer.getInventario().addItem(SementeMaracuja(1));
+    farmer.getInventario().addItem(SementeTangerina(1));
     bool inventarioAberto = true;       //Inventario comeca aberto na tela
 
     Terreno terreno = Terreno(120, 68, 16.0f);      //Grade de 120x68 tiles de 16px, cobre a area inicial
@@ -59,7 +64,9 @@ int main()
 
     SetTargetFPS(60);
 
-    Texture2D playerTexture = LoadTexture("assets/player.png"); // Carrego a skin do player
+    Culturas::carregarTexturas();       //Sprites placeholder do maracuja e da tangerina
+
+    Texture2D playerTexture = LoadTexture(ASSETS_PATH "player.png"); // Carrego a skin do player
     SetTextureFilter(playerTexture, TEXTURE_FILTER_POINT);
 
     float frameWidth = (float)(playerTexture.width);
@@ -169,11 +176,10 @@ int main()
                 }
                 else if(ferramenta == "Foice")
                 {
-                    Item colheita = soloMouse->getFruta();      //Pega a fruta antes, colher limpa o solo
+                    tipoCultura cultura = soloMouse->getFruta().getCultura();      //Pega antes, colher limpa o solo
                     if(soloMouse->colher())
                     {
-                        colheita.setQuantidade(3);
-                        farmer.getInventario().addItem(colheita);       //Colheita da 3 da mesma fruta plantada
+                        farmer.getInventario().addItem(Culturas::criarColheita(cultura, 3));       //Colheita da 3 frutas, mesmo plantando semente
                     }
                     else std::cout << "Nada maduro pra colher!" << std::endl;
                 }
@@ -183,15 +189,17 @@ int main()
                 }
             }
 
-            //Plantar a fruta selecionada com o botao direito
+            //Plantar a semente (ou fruta) selecionada com o botao direito
             if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
             {
-                Item& fruta = farmer.getInventario().getItemSelecionado();
-                if(fruta.isEmpty() || fruta.getType() != COLHEITA)
+                Item& muda = farmer.getInventario().getItemSelecionado();
+                bool plantavel = !muda.isEmpty() && muda.getCultura() != SEM_CULTURA
+                                 && (muda.getType() == SEMENTE || muda.getType() == COLHEITA);
+                if(!plantavel)
                 {
-                    std::cout << "Selecione uma fruta pra plantar!" << std::endl;
+                    std::cout << "Selecione uma semente ou fruta pra plantar!" << std::endl;
                 }
-                else if(soloMouse->plantar(fruta))
+                else if(soloMouse->plantar(muda))
                 {
                     farmer.getInventario().removerItem(farmer.getInventario().getSlotSelecionado(), 1);      //Gasta uma fruta do slot selecionado
                 }
@@ -238,5 +246,6 @@ int main()
 
 
     UnloadTexture(playerTexture); // Libero a memória da GPU
+    Culturas::descarregarTexturas();
     CloseWindow();      //Fecha a Janela
 }
