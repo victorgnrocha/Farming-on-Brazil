@@ -21,6 +21,7 @@ add_executable(Farming_on_Brazil
                 src/classes/itens/Items.cpp
                 src/classes/inventario/inventario.cpp
                 src/classes/itens/tangerina.cpp
+                src/classes/itens/maracuja.cpp
                 src/classes/terreno/solo.cpp
                 src/classes/terreno/terreno.cpp     
                 )

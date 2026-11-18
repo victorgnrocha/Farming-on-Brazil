@@ -11,6 +11,7 @@
 
 #include "./classes/character/char.h"
 #include "./classes/itens/tangerina.h"
+#include "./classes/itens/maracuja.h"
 #include "./classes/terreno/terreno.h"
 
 int main()
@@ -122,15 +123,21 @@ int main()
         //Inventario
         if(IsKeyPressed(KEY_E))     //Colhe uma tangerina
         {
-            if(!farmer.getInventario().addItem(Tangerina(1))) std::cout << "Inventario cheio!" << std::endl;
+            if(!farmer.getInventario().addItem(Maracuja(1))) std::cout << "Inventario cheio!" << std::endl;
         }
         if(IsKeyPressed(KEY_I)) inventarioAberto = !inventarioAberto;     //Abre e fecha o inventario
 
-        //Selecao de ferramenta, so de 1 a 4
+        //Selecao de slot, de 1 a 0 (primeira linha do inventario)
         if(IsKeyPressed(KEY_ONE)) farmer.getInventario().setSlotSelecionado(0);
         if(IsKeyPressed(KEY_TWO)) farmer.getInventario().setSlotSelecionado(1);
         if(IsKeyPressed(KEY_THREE)) farmer.getInventario().setSlotSelecionado(2);
         if(IsKeyPressed(KEY_FOUR)) farmer.getInventario().setSlotSelecionado(3);
+        if(IsKeyPressed(KEY_FIVE)) farmer.getInventario().setSlotSelecionado(4);
+        if(IsKeyPressed(KEY_SIX)) farmer.getInventario().setSlotSelecionado(5);
+        if(IsKeyPressed(KEY_SEVEN)) farmer.getInventario().setSlotSelecionado(6);
+        if(IsKeyPressed(KEY_EIGHT)) farmer.getInventario().setSlotSelecionado(7);
+        if(IsKeyPressed(KEY_NINE)) farmer.getInventario().setSlotSelecionado(8);
+        if(IsKeyPressed(KEY_ZERO)) farmer.getInventario().setSlotSelecionado(9);
 
 
         charCam.target = (Vector2){playerPosition.x, playerPosition.y};
@@ -162,7 +169,12 @@ int main()
                 }
                 else if(ferramenta == "Foice")
                 {
-                    if(soloMouse->colher()) farmer.getInventario().addItem(Tangerina(3));       //Colheita da 3 tangerinas
+                    Item colheita = soloMouse->getFruta();      //Pega a fruta antes, colher limpa o solo
+                    if(soloMouse->colher())
+                    {
+                        colheita.setQuantidade(3);
+                        farmer.getInventario().addItem(colheita);       //Colheita da 3 da mesma fruta plantada
+                    }
                     else std::cout << "Nada maduro pra colher!" << std::endl;
                 }
                 else if(ferramenta == "Machado")
@@ -171,16 +183,17 @@ int main()
                 }
             }
 
-            //Plantar tangerina com o botao direito
+            //Plantar a fruta selecionada com o botao direito
             if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
             {
-                if(farmer.getInventario().contarItem("Tangerina") == 0)
+                Item& fruta = farmer.getInventario().getItemSelecionado();
+                if(fruta.isEmpty() || fruta.getType() != COLHEITA)
                 {
-                    std::cout << "Sem tangerina pra plantar!" << std::endl;
+                    std::cout << "Selecione uma fruta pra plantar!" << std::endl;
                 }
-                else if(soloMouse->plantar())
+                else if(soloMouse->plantar(fruta))
                 {
-                    farmer.getInventario().removerItemPorNome("Tangerina", 1);      //Gasta uma tangerina
+                    farmer.getInventario().removerItem(farmer.getInventario().getSlotSelecionado(), 1);      //Gasta uma fruta do slot selecionado
                 }
                 else
                 {

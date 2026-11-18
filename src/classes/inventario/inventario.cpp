@@ -117,7 +117,7 @@ void Inventario::desenharInventario()
     DrawRectangle(posX, posY, largura, altura, Fade(BLACK, 0.7f));
     DrawRectangleLines(posX, posY, largura, altura, RAYWHITE);
     this->areaTela = {(float)posX, (float)posY, (float)largura, (float)altura};     //Guarda pra checar o mouse
-    DrawText("Inventario  [1-4] ferramenta  [Esq] usa  [Dir] planta  [E] pega tangerina  [I] fecha", posX + espaco, posY + 6, 20, RAYWHITE);
+    DrawText("Inventario  [1-0] seleciona  [Esq] usa  [Dir] planta fruta  [E] pega fruta  [I] fecha", posX + espaco, posY + 6, 20, RAYWHITE);
 
     for(int i = 0; i < this->capacidade; i++)
     {
@@ -127,7 +127,7 @@ void Inventario::desenharInventario()
         DrawRectangle(x, y, tamSlot, tamSlot, Fade(DARKGRAY, 0.8f));     //Slot
 
         //Numero da tecla nos slots selecionaveis
-        if(i < maxSelecionavel) DrawText(std::to_string(i + 1).c_str(), x + 4, y + 4, 16, LIGHTGRAY);
+        if(i < maxSelecionavel) DrawText(std::to_string((i + 1) % 10).c_str(), x + 4, y + 4, 16, LIGHTGRAY);
 
         Item& s = slots[i];
         if(s.isEmpty())
@@ -162,7 +162,7 @@ void Inventario::desenharInventario()
 
 void Inventario::setSlotSelecionado(int slotRef)
 {
-    if(slotRef < 0 || slotRef >= maxSelecionavel) return;       //So aceita 1 a 4
+    if(slotRef < 0 || slotRef >= maxSelecionavel) return;       //So aceita a primeira linha
     this->slotSelecionado = slotRef;
 }
 

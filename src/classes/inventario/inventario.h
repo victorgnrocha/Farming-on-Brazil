@@ -23,7 +23,7 @@ class Inventario
         void mostrarInventario();       //Printa o inventario no terminal
         void desenharInventario();      //Desenha o inventario na tela
 
-        static const int maxSelecionavel = 4;       //So os slots 1 a 4 podem ser selecionados
+        static const int maxSelecionavel = 10;       //So a primeira linha (1 a 0) pode ser selecionada
         void setSlotSelecionado(int slotRef);
         int getSlotSelecionado();
         Item& getItemSelecionado();

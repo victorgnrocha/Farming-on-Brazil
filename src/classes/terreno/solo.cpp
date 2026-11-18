@@ -25,10 +25,12 @@ bool Solo::regar()
     return true;
 }
 
-bool Solo::plantar()
+bool Solo::plantar(Item frutaRef)
 {
     if(this->estado != ARADO || this->plantado) return false;       //Precisa estar arado e vazio
     this->plantado = true;
+    this->fruta = frutaRef;
+    this->fruta.setQuantidade(1);       //Guarda so uma, o resto fica no inventario
     this->crescimento = 0.0f;
     return true;
 }
@@ -38,6 +40,7 @@ bool Solo::colher()
     if(!isMaduro()) return false;
     this->plantado = false;     //Solo continua arado depois da colheita
     this->crescimento = 0.0f;
+    this->fruta = Item();       //Limpa a fruta
     return true;
 }
 
@@ -76,6 +79,11 @@ bool Solo::isMaduro()
     return this->plantado && this->crescimento >= tempoCrescer;
 }
 
+Item Solo::getFruta()
+{
+    return this->fruta;
+}
+
 int Solo::getEstagio()
 {
     if(!this->plantado) return -1;
@@ -91,7 +99,7 @@ void Solo::desenhar(float x, float y, float tam)
     Color corSolo = this->regado ? (Color){80, 50, 30, 255} : (Color){150, 105, 60, 255};       //Regado fica mais escuro
     DrawRectangleV((Vector2){x, y}, (Vector2){tam, tam}, corSolo);
 
-    //Placeholder da tangerina, cresce conforme o estagio
+    //Placeholder da planta, cresce conforme o estagio
     Vector2 centro = {x + tam/2, y + tam/2};
     switch(getEstagio())
     {
@@ -106,9 +114,9 @@ void Solo::desenhar(float x, float y, float tam)
             break;
         case 3:
             DrawCircleV(centro, tam*0.42f, DARKGREEN);      //Arbusto com fruta
-            DrawCircleV((Vector2){centro.x - tam*0.15f, centro.y - tam*0.1f}, tam*0.1f, ORANGE);
-            DrawCircleV((Vector2){centro.x + tam*0.15f, centro.y - tam*0.05f}, tam*0.1f, ORANGE);
-            DrawCircleV((Vector2){centro.x, centro.y + tam*0.17f}, tam*0.1f, ORANGE);
+            DrawCircleV((Vector2){centro.x - tam*0.15f, centro.y - tam*0.1f}, tam*0.1f, this->fruta.getCor());
+            DrawCircleV((Vector2){centro.x + tam*0.15f, centro.y - tam*0.05f}, tam*0.1f, this->fruta.getCor());
+            DrawCircleV((Vector2){centro.x, centro.y + tam*0.17f}, tam*0.1f, this->fruta.getCor());
             break;
         default:
             break;      //Sem planta
